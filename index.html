@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>King of the Court</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">King of the Court</h1>
+      <button
+        id="start-configuration-button"
+        class="btn btn-primary mt-3"
+        onclick="startConfiguration()"
+      >
+        Start Teams Configuration
+      </button>
+
+      <div id="teams-form" style="display: none">
+        <h2 class="mt-3">Teams Configuration</h2>
+        <form id="team-form">
+          <!-- Team King -->
+          <div class="mb-3">
+            <label for="king-name" class="form-label">King:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="king-name"
+              value="team1"
+              required
+            />
+            <label for="king-player1" class="form-label">Player 1:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="king-player1"
+              value="team1player1"
+              required
+            />
+            <label for="king-player2" class="form-label">Player 2:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="king-player2"
+              value="team1player2"
+              required
+            />
+          </div>
+
+          <!-- Team Challenger -->
+          <div class="mb-3">
+            <label for="challenger-name" class="form-label">Challenger:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="challenger-name"
+              value="team2"
+              required
+            />
+            <label for="challenger-player1" class="form-label">Player 1:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="challenger-player1"
+              value="team2player1"
+              required
+            />
+            <label for="challenger-player2" class="form-label">Player 2:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="challenger-player2"
+              value="team2player2"
+              required
+            />
+          </div>
+
+          <!-- Team First in Queue -->
+          <div class="mb-3">
+            <label for="first-in-queue-name" class="form-label"
+              >First in Queue:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="first-in-queue-name"
+              value="team3"
+              required
+            />
+            <label for="first-in-queue-player1" class="form-label"
+              >Player 1:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="first-in-queue-player1"
+              value="team3player1"
+              required
+            />
+            <label for="first-in-queue-player2" class="form-label"
+              >Player 2:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="first-in-queue-player2"
+              value="team3player2"
+              required
+            />
+          </div>
+
+          <!-- Team Middle in Queue -->
+          <div class="mb-3">
+            <label for="middle-in-queue-name" class="form-label"
+              >Middle in Queue:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="middle-in-queue-name"
+              value="team4"
+              required
+            />
+            <label for="middle-in-queue-player1" class="form-label"
+              >Player 1:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="middle-in-queue-player1"
+              value="team4player1"
+              required
+            />
+            <label for="middle-in-queue-player2" class="form-label"
+              >Player 2:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="middle-in-queue-player2"
+              value="team4player2"
+              required
+            />
+          </div>
+
+          <!-- Team Last in Queue -->
+          <div class="mb-3">
+            <label for="last-in-queue-name" class="form-label"
+              >Last in Queue:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="last-in-queue-name"
+              value="team5"
+              required
+            />
+            <label for="last-in-queue-player1" class="form-label"
+              >Player 1:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="last-in-queue-player1"
+              value="team5player1"
+              required
+            />
+            <label for="last-in-queue-player2" class="form-label"
+              >Player 2:</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="last-in-queue-player2"
+              value="team5player2"
+              required
+            />
+          </div>
+
+          <button type="button" class="btn btn-success" onclick="startGame()">
+            Start Game
+          </button>
+        </form>
+      </div>
+
+      <div id="teams-overview" style="display: none">
+        <h2 class="mt-5">Teams Overview</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">King</h4>
+                <p class="card-text" id="king-pane">
+                  King: -<br />Player 1: -<br />Player 2: -<br />Score: -
+                </p>
+                <button class="btn btn-success" onclick="kingScored()">
+                  King Scored
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Challenger</h4>
+                <p class="card-text" id="challenger-pane">
+                  Challenger: -<br />Player 1: -<br />Player 2: -<br />Score: -
+                </p>
+                <button class="btn btn-success" onclick="challengerScored()">
+                  Challenger Scored
+                </button>
+                <button class="btn btn-danger" onclick="challengerFault()">
+                  Challenger Service Fault
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Queue</h4>
+                <p class="card-text" id="queue-pane-first"></p>
+                <p class="card-text" id="queue-pane-middle"></p>
+                <p class="card-text" id="queue-pane-last"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      var king;
+      var challenger;
+      var first;
+      var middle;
+      var last;
+
+      function startConfiguration() {
+        document.getElementById("teams-form").style.display = "block";
+      }
+
+      function startGame() {
+        // Retrieve values from inputs
+        const kingName = document.getElementById("king-name").value;
+        const kingPlayer1 = document.getElementById("king-player1").value;
+        const kingPlayer2 = document.getElementById("king-player2").value;
+
+        const challengerName = document.getElementById("challenger-name").value;
+        const challengerPlayer1 =
+          document.getElementById("challenger-player1").value;
+        const challengerPlayer2 =
+          document.getElementById("challenger-player2").value;
+
+        const firstInQueueName = document.getElementById(
+          "first-in-queue-name"
+        ).value;
+        const firstinqueuePlayer1 = document.getElementById(
+          "first-in-queue-player1"
+        ).value;
+        const firstinqueuePlayer2 = document.getElementById(
+          "first-in-queue-player2"
+        ).value;
+
+        const middleInQueueName = document.getElementById(
+          "middle-in-queue-name"
+        ).value;
+        const middleinqueuePlayer1 = document.getElementById(
+          "middle-in-queue-player1"
+        ).value;
+        const middleinqueuePlayer2 = document.getElementById(
+          "middle-in-queue-player2"
+        ).value;
+
+        const lastInQueueName =
+          document.getElementById("last-in-queue-name").value;
+        const lastinqueuePlayer1 = document.getElementById(
+          "last-in-queue-player1"
+        ).value;
+        const lastinqueuePlayer2 = document.getElementById(
+          "last-in-queue-player2"
+        ).value;
+
+        // Create team objects with initial parameters
+        const team1 = {
+          name: kingName,
+          player1: kingPlayer1,
+          player2: kingPlayer2,
+          score: 0,
+        };
+        const team2 = {
+          name: challengerName,
+          player1: challengerPlayer1,
+          player2: challengerPlayer2,
+          score: 0,
+        };
+        const team3 = {
+          name: firstInQueueName,
+          player1: firstinqueuePlayer1,
+          player2: firstinqueuePlayer2,
+          score: 0,
+        };
+        const team4 = {
+          name: middleInQueueName,
+          player1: middleinqueuePlayer1,
+          player2: middleinqueuePlayer2,
+          score: 0,
+        };
+        const team5 = {
+          name: lastInQueueName,
+          player1: lastinqueuePlayer1,
+          player2: lastinqueuePlayer2,
+          score: 0,
+        };
+
+        king = team1;
+        challenger = team2;
+        first = team3;
+        middle = team4;
+        last = team5;
+
+        // Display teams overview
+        document.getElementById(
+          "king-pane"
+        ).innerText = `${team1.name}\nPlayers: ${team1.player1} & ${team1.player2}\nScore: ${team1.score}`;
+        document.getElementById(
+          "challenger-pane"
+        ).innerText = ` ${team2.name}\nPlayers: ${team2.player1} & ${team2.player2}\nScore: ${team2.score}`;
+        document.getElementById(
+          "queue-pane-first"
+        ).innerHTML = `${team3.name}<br>Score: ${team3.score}`;
+        document.getElementById(
+          "queue-pane-middle"
+        ).innerHTML = `${team4.name}<br>Score: ${team4.score}`;
+        document.getElementById(
+          "queue-pane-last"
+        ).innerHTML = `${team5.name}<br>Score: ${team5.score}`;
+
+        document.getElementById("start-configuration-button").style.display =
+          "none";
+        document.getElementById("teams-form").style.display = "none";
+        document.getElementById("teams-overview").style.display = "block";
+      }
+
+      function updateOverview() {
+        // Display teams overview
+        document.getElementById(
+          "king-pane"
+        ).innerText = `${king.name}\nPlayers: ${king.player1} & ${king.player2}\nScore: ${king.score}`;
+        document.getElementById(
+          "challenger-pane"
+        ).innerText = ` ${challenger.name}\nPlayers: ${challenger.player1} & ${challenger.player2}\nScore: ${challenger.score}`;
+        document.getElementById(
+          "queue-pane-first"
+        ).innerHTML = `${first.name}<br>Score: ${first.score}`;
+        document.getElementById(
+          "queue-pane-middle"
+        ).innerHTML = `${middle.name}<br>Score: ${middle.score}`;
+        document.getElementById(
+          "queue-pane-last"
+        ).innerHTML = `${last.name}<br>Score: ${last.score}`;
+      }
+
+      function kingScored() {
+        // Logic for when King scores
+        king.score++;
+        updateOverview();
+      }
+
+      function challengerScored() {
+        // Logic for when Challenger scores
+        var lostKing = king;
+        // challenger becomes new king
+        king = challenger;
+        // first in queue becomes challenger
+        challenger = first;
+        // queue is updated
+        first = middle;
+        middle = last;
+        last = lostKing;
+        updateOverview();
+      }
+
+      function challengerFault() {
+        // Logic for when Challenger Service Fault
+        var lostChallenger = challenger;
+        // first in queue becomes challenger
+        challenger = first;
+        // queue is updated
+        first = middle;
+        middle = last;
+        last = lostChallenger;
+        updateOverview();
+      }
+    </script>
+  </body>
+</html>

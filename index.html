@@ -31,162 +31,289 @@
       <div id="teams-form" style="display: none">
         <h2 class="mt-3">Teams Configuration</h2>
         <form id="team-form">
-          <!-- Team King -->
-          <div class="mb-3">
-            <label for="king-name" class="form-label">King:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="king-name"
-              value="team1"
-              required
-            />
-            <label for="king-player1" class="form-label">Player 1:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="king-player1"
-              value="team1player1"
-              required
-            />
-            <label for="king-player2" class="form-label">Player 2:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="king-player2"
-              value="team1player2"
-              required
-            />
+          <div class="row">
+            <!-- Team King -->
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="king-name" class="form-label">King:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="king-name"
+                  placeholder="Team name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label for="king-color" class="form-label">Color:</label>
+                <input
+                  type="color"
+                  class="form-control form-control-color"
+                  id="king-color"
+                  value="#cc0000"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="king-player1" class="form-label">Player 1:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="king-player1"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="king-player2" class="form-label">Player 2:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="king-player2"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <!-- Team Challenger -->
-          <div class="mb-3">
-            <label for="challenger-name" class="form-label">Challenger:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="challenger-name"
-              value="team2"
-              required
-            />
-            <label for="challenger-player1" class="form-label">Player 1:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="challenger-player1"
-              value="team2player1"
-              required
-            />
-            <label for="challenger-player2" class="form-label">Player 2:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="challenger-player2"
-              value="team2player2"
-              required
-            />
+          <div class="row">
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="challenger-name" class="form-label"
+                  >Challenger:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="challenger-name"
+                  placeholder="Team name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label for="challenger-color" class="form-label">Color:</label>
+                <input
+                  type="color"
+                  class="form-control form-control-color"
+                  id="challenger-color"
+                  value="#8fce00"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="challenger-player1" class="form-label"
+                  >Player 1:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="challenger-player1"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="challenger-player2" class="form-label"
+                  >Player 2:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="challenger-player2"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <!-- Team First in Queue -->
-          <div class="mb-3">
-            <label for="first-in-queue-name" class="form-label"
-              >First in Queue:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="first-in-queue-name"
-              value="team3"
-              required
-            />
-            <label for="first-in-queue-player1" class="form-label"
-              >Player 1:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="first-in-queue-player1"
-              value="team3player1"
-              required
-            />
-            <label for="first-in-queue-player2" class="form-label"
-              >Player 2:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="first-in-queue-player2"
-              value="team3player2"
-              required
-            />
+          <div class="row">
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="first-in-queue-name" class="form-label"
+                  >First in Queue:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-in-queue-name"
+                  placeholder="Team name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label for="first-in-queue-color" class="form-label"
+                  >Color:</label
+                >
+                <input
+                  type="color"
+                  class="form-control form-control-color"
+                  id="first-in-queue-color"
+                  value="#faff00"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="first-in-queue-player1" class="form-label"
+                  >Player 1:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-in-queue-player1"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="first-in-queue-player2" class="form-label"
+                  >Player 2:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-in-queue-player2"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <!-- Team Middle in Queue -->
-          <div class="mb-3">
-            <label for="middle-in-queue-name" class="form-label"
-              >Middle in Queue:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="middle-in-queue-name"
-              value="team4"
-              required
-            />
-            <label for="middle-in-queue-player1" class="form-label"
-              >Player 1:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="middle-in-queue-player1"
-              value="team4player1"
-              required
-            />
-            <label for="middle-in-queue-player2" class="form-label"
-              >Player 2:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="middle-in-queue-player2"
-              value="team4player2"
-              required
-            />
+          <div class="row">
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="middle-in-queue-name" class="form-label"
+                  >Middle in Queue:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="middle-in-queue-name"
+                  placeholder="Team name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label for="middle-in-queue-color" class="form-label"
+                  >Color:</label
+                >
+                <input
+                  type="color"
+                  class="form-control form-control-color"
+                  id="middle-in-queue-color"
+                  value="#2f7ec5"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="middle-in-queue-player1" class="form-label"
+                  >Player 1:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="middle-in-queue-player1"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="middle-in-queue-player2" class="form-label"
+                  >Player 2:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="middle-in-queue-player2"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <!-- Team Last in Queue -->
-          <div class="mb-3">
-            <label for="last-in-queue-name" class="form-label"
-              >Last in Queue:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="last-in-queue-name"
-              value="team5"
-              required
-            />
-            <label for="last-in-queue-player1" class="form-label"
-              >Player 1:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="last-in-queue-player1"
-              value="team5player1"
-              required
-            />
-            <label for="last-in-queue-player2" class="form-label"
-              >Player 2:</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="last-in-queue-player2"
-              value="team5player2"
-              required
-            />
+          <div class="row">
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="last-in-queue-name" class="form-label"
+                  >Last in Queue:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-in-queue-name"
+                  placeholder="Team name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label for="last-in-queue-color" class="form-label"
+                  >Color:</label
+                >
+                <input
+                  type="color"
+                  class="form-control form-control-color"
+                  id="last-in-queue-color"
+                  value="#000000"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="last-in-queue-player1" class="form-label"
+                  >Player 1:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-in-queue-player1"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="last-in-queue-player2" class="form-label"
+                  >Player 2:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-in-queue-player2"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <button type="button" class="btn btn-success" onclick="startGame()">
@@ -201,9 +328,11 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">King</h4>
-                <p class="card-text" id="king-pane">
-                  King: -<br />Player 1: -<br />Player 2: -<br />Score: -
-                </p>
+                <p
+                  style="padding-left: 3%"
+                  class="card-text"
+                  id="king-pane"
+                ></p>
                 <button
                   class="btn btn-success"
                   onclick="kingScored()"
@@ -220,9 +349,11 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Challenger</h4>
-                <p class="card-text" id="challenger-pane">
-                  Challenger: -<br />Player 1: -<br />Player 2: -<br />Score: -
-                </p>
+                <p
+                  style="padding-left: 3%"
+                  class="card-text"
+                  id="challenger-pane"
+                ></p>
                 <button
                   class="btn btn-success"
                   onclick="challengerScored()"
@@ -248,9 +379,21 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Queue</h4>
-                <p class="card-text" id="queue-pane-first"></p>
-                <p class="card-text" id="queue-pane-middle"></p>
-                <p class="card-text" id="queue-pane-last"></p>
+                <p
+                  style="padding-left: 3%"
+                  class="card-text"
+                  id="queue-pane-first"
+                ></p>
+                <p
+                  style="padding-left: 3%"
+                  class="card-text"
+                  id="queue-pane-middle"
+                ></p>
+                <p
+                  style="padding-left: 3%"
+                  class="card-text"
+                  id="queue-pane-last"
+                ></p>
               </div>
             </div>
           </div>
@@ -310,19 +453,46 @@
 
       function startConfiguration() {
         document.getElementById("teams-form").style.display = "block";
+        document.getElementById("start-configuration-button").style.display =
+          "none";
       }
 
       function startGame() {
+        document.addEventListener("keydown", function (event) {
+          // Check if the key pressed is the spacebar
+          if (event.code === "Space") {
+            pauseResumeTimer();
+          }
+
+          // Check if the key pressed is "k"
+          if (event.key.toLowerCase() === "k") {
+            kingScored();
+          }
+
+          // Check if the key pressed is "c"
+          if (event.key.toLowerCase() === "c") {
+            challengerScored();
+          }
+
+          // Check if the key pressed is "f"
+          if (event.key.toLowerCase() === "f") {
+            challengerFault();
+          }
+        });
+
         // Retrieve values from inputs
         const kingName = document.getElementById("king-name").value;
         const kingPlayer1 = document.getElementById("king-player1").value;
         const kingPlayer2 = document.getElementById("king-player2").value;
+        const kingColor = document.getElementById("king-color").value;
 
         const challengerName = document.getElementById("challenger-name").value;
         const challengerPlayer1 =
           document.getElementById("challenger-player1").value;
         const challengerPlayer2 =
           document.getElementById("challenger-player2").value;
+        const challengerColor =
+          document.getElementById("challenger-color").value;
 
         const firstInQueueName = document.getElementById(
           "first-in-queue-name"
@@ -332,6 +502,9 @@
         ).value;
         const firstinqueuePlayer2 = document.getElementById(
           "first-in-queue-player2"
+        ).value;
+        const firstInQueueColor = document.getElementById(
+          "first-in-queue-color"
         ).value;
 
         const middleInQueueName = document.getElementById(
@@ -343,6 +516,9 @@
         const middleinqueuePlayer2 = document.getElementById(
           "middle-in-queue-player2"
         ).value;
+        const middleInQueueColor = document.getElementById(
+          "middle-in-queue-color"
+        ).value;
 
         const lastInQueueName =
           document.getElementById("last-in-queue-name").value;
@@ -351,6 +527,9 @@
         ).value;
         const lastinqueuePlayer2 = document.getElementById(
           "last-in-queue-player2"
+        ).value;
+        const lastInQueueColor = document.getElementById(
+          "last-in-queue-color"
         ).value;
 
         // Create team objects with initial parameters
@@ -365,6 +544,7 @@
           eliminated: false,
           eliminatedInRound: null,
           roundStartingPosition: 1,
+          color: kingColor,
         };
         const team2 = {
           name: challengerName,
@@ -377,6 +557,7 @@
           eliminated: false,
           eliminatedInRound: null,
           roundStartingPosition: 2,
+          color: challengerColor,
         };
         const team3 = {
           name: firstInQueueName,
@@ -389,6 +570,7 @@
           eliminated: false,
           eliminatedInRound: null,
           roundStartingPosition: 3,
+          color: firstInQueueColor,
         };
         const team4 = {
           name: middleInQueueName,
@@ -401,6 +583,7 @@
           eliminated: false,
           eliminatedInRound: null,
           roundStartingPosition: 4,
+          color: middleInQueueColor,
         };
         const team5 = {
           name: lastInQueueName,
@@ -413,6 +596,7 @@
           eliminated: false,
           eliminatedInRound: null,
           roundStartingPosition: 5,
+          color: lastInQueueColor,
         };
 
         king = team1;
@@ -424,21 +608,7 @@
         teams = [team1, team2, team3, team4, team5];
 
         // Display teams overview
-        document.getElementById(
-          "king-pane"
-        ).innerText = `${team1.name}\nPlayers: ${team1.player1} & ${team1.player2}\nScore: ${team1.score}\nCurrent Streak: ${team1.currentStreak}`;
-        document.getElementById(
-          "challenger-pane"
-        ).innerText = ` ${team2.name}\nPlayers: ${team2.player1} & ${team2.player2}\nScore: ${team2.score}\nService Fault Streak: ${serviceFaultCounter}`;
-        document.getElementById(
-          "queue-pane-first"
-        ).innerHTML = `${team3.name}<br>Score: ${team3.score}`;
-        document.getElementById(
-          "queue-pane-middle"
-        ).innerHTML = `${team4.name}<br>Score: ${team4.score}`;
-        document.getElementById(
-          "queue-pane-last"
-        ).innerHTML = `${team5.name}<br>Score: ${team5.score}`;
+        updateOverview();
 
         document.getElementById("start-configuration-button").style.display =
           "none";
@@ -454,17 +624,32 @@
           "king-pane"
         ).innerText = `${king.name}\nPlayers: ${king.player1} & ${king.player2}\nScore: ${king.score}\nCurrent Streak: ${king.currentStreak}`;
         document.getElementById(
+          "king-pane"
+        ).style.borderLeft = `2vw solid ${king.color}`;
+        document.getElementById(
           "challenger-pane"
         ).innerText = ` ${challenger.name}\nPlayers: ${challenger.player1} & ${challenger.player2}\nScore: ${challenger.score}\nService Fault Streak: ${serviceFaultCounter}`;
+        document.getElementById(
+          "challenger-pane"
+        ).style.borderLeft = `2vw solid ${challenger.color}`;
         document.getElementById(
           "queue-pane-first"
         ).innerHTML = `${first.name}<br>Score: ${first.score}`;
         document.getElementById(
+          "queue-pane-first"
+        ).style.borderLeft = `2vw solid ${first.color}`;
+        document.getElementById(
           "queue-pane-middle"
         ).innerHTML = `${middle.name}<br>Score: ${middle.score}`;
         document.getElementById(
+          "queue-pane-middle"
+        ).style.borderLeft = `2vw solid ${middle.color}`;
+        document.getElementById(
           "queue-pane-last"
         ).innerHTML = `${last.name}<br>Score: ${last.score}`;
+        document.getElementById(
+          "queue-pane-last"
+        ).style.borderLeft = `2vw solid ${last.color}`;
       }
 
       function kingScored() {
@@ -792,28 +977,6 @@
           }
         }
       }
-
-      document.addEventListener("keydown", function (event) {
-        // Check if the key pressed is the spacebar
-        if (event.code === "Space") {
-          pauseResumeTimer();
-        }
-
-        // Check if the key pressed is "k"
-        if (event.key.toLowerCase() === "k") {
-          kingScored();
-        }
-
-        // Check if the key pressed is "c"
-        if (event.key.toLowerCase() === "c") {
-          challengerScored();
-        }
-
-        // Check if the key pressed is "f"
-        if (event.key.toLowerCase() === "f") {
-          challengerFault();
-        }
-      });
     </script>
   </body>
 </html>

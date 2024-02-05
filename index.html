@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,17 +9,24 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&display=swap"
+      rel="stylesheet"
+    />
     <style>
       #timer {
         font-size: 5rem;
-        font-weight: bold;
-        color: #007bff; /* Bootstrap primary color */
+      }
+      body {
+        font-family: "League Spartan", sans-serif;
       }
     </style>
   </head>
   <body>
     <div class="container mt-5">
-      <h1 class="text-center">King of the Court</h1>
+      <h1 id="king-of-the-court-h1" class="text-center">King of the Court</h1>
       <button
         id="start-configuration-button"
         class="btn btn-primary mt-3"
@@ -324,7 +331,7 @@
       </div>
 
       <div id="teams-overview" style="display: none">
-        <div class="row">
+        <div id="teams-game-state-overview" class="row">
           <div class="col-md-4">
             <div class="card">
               <div class="card-body">
@@ -402,7 +409,7 @@
         <!-- Timer -->
         <div class="card mt-3">
           <div class="card-body">
-            <h4 class="card-title">Timer</h4>
+            <h4 id="timer-title" class="card-title">Timer</h4>
             <p id="timer">15:00</p>
             <button
               id="pauseResumeBtn"
@@ -640,6 +647,7 @@
           "none";
         document.getElementById("teams-form").style.display = "none";
         document.getElementById("teams-overview").style.display = "block";
+        document.getElementById("king-of-the-court-h1").style.display = "none";
 
         updateLeaderboard();
       }
@@ -908,7 +916,10 @@
           eliminate(2);
           updateLeaderboard();
           document.getElementById("timer").innerText = `Game finished`;
+          document.getElementById("timer-title").style.display = "none";
           document.getElementById("pauseResumeBtn").style.display = "none";
+          document.getElementById("teams-game-state-overview").style.display =
+            "none";
           //TODO: show new page with leaderboard and option to restart game
         }
       }

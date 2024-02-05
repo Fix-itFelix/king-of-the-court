@@ -447,6 +447,7 @@
       }
 
       function kingScored() {
+        pauseResumeTimer();
         serviceFaultCounter = 0;
         // Logic for when King scores
         king.score++;
@@ -487,6 +488,7 @@
       }
 
       function challengerScored() {
+        pauseResumeTimer();
         serviceFaultCounter = 0;
         // King's current streak is reset
         king.currentStreak = 0;
@@ -511,6 +513,7 @@
       }
 
       function challengerFault() {
+        pauseResumeTimer();
         serviceFaultCounter++;
         if (serviceFaultCounter == 3) {
           serviceFaultCounter = 0;

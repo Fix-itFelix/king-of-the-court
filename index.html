@@ -196,7 +196,6 @@
       </div>
 
       <div id="teams-overview" style="display: none">
-        <h2 class="mt-5">Teams Overview</h2>
         <div class="row">
           <div class="col-md-4">
             <div class="card">
@@ -239,9 +238,38 @@
           </div>
         </div>
         <!-- Timer -->
-        <div class="mt-3">
-          <h4>Game Timer</h4>
-          <p id="timer">15:00</p>
+        <div class="card mt-3">
+          <div class="card-body">
+            <h4 class="card-title">Timer</h4>
+            <p id="timer">15:00</p>
+            <button
+              id="pauseResumeBtn"
+              class="btn btn-primary"
+              onclick="pauseResumeTimer()"
+            >
+              Start round 1
+            </button>
+          </div>
+        </div>
+        <!-- Leaderboard Card -->
+        <div class="card mt-3">
+          <div class="card-body">
+            <h4 class="card-title">Leaderboard</h4>
+            <table id="leaderboardTable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team</th>
+                  <th>Players</th>
+                  <th>Score</th>
+                  <th>Streak</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table body will be filled by the updateLeaderboard function -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -255,6 +283,9 @@
       var first;
       var middle;
       var last;
+      var teams;
+      var serviceFaultCounter = 0;
+      var intervalId;
 
       function startConfiguration() {
         document.getElementById("teams-form").style.display = "block";
@@ -307,30 +338,60 @@
           player1: kingPlayer1,
           player2: kingPlayer2,
           score: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          streakRanking: null,
+          eliminated: false,
+          eliminatedInRound: null,
+          roundStartingPosition: 1,
         };
         const team2 = {
           name: challengerName,
           player1: challengerPlayer1,
           player2: challengerPlayer2,
           score: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          streakRanking: null,
+          eliminated: false,
+          eliminatedInRound: null,
+          roundStartingPosition: 2,
         };
         const team3 = {
           name: firstInQueueName,
           player1: firstinqueuePlayer1,
           player2: firstinqueuePlayer2,
           score: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          streakRanking: null,
+          eliminated: false,
+          eliminatedInRound: null,
+          roundStartingPosition: 3,
         };
         const team4 = {
           name: middleInQueueName,
           player1: middleinqueuePlayer1,
           player2: middleinqueuePlayer2,
           score: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          streakRanking: null,
+          eliminated: false,
+          eliminatedInRound: null,
+          roundStartingPosition: 4,
         };
         const team5 = {
           name: lastInQueueName,
           player1: lastinqueuePlayer1,
           player2: lastinqueuePlayer2,
           score: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          streakRanking: null,
+          eliminated: false,
+          eliminatedInRound: null,
+          roundStartingPosition: 5,
         };
 
         king = team1;
@@ -339,13 +400,15 @@
         middle = team4;
         last = team5;
 
+        teams = [team1, team2, team3, team4, team5];
+
         // Display teams overview
         document.getElementById(
           "king-pane"
-        ).innerText = `${team1.name}\nPlayers: ${team1.player1} & ${team1.player2}\nScore: ${team1.score}`;
+        ).innerText = `${team1.name}\nPlayers: ${team1.player1} & ${team1.player2}\nScore: ${team1.score}\nCurrent Streak: ${team1.currentStreak}`;
         document.getElementById(
           "challenger-pane"
-        ).innerText = ` ${team2.name}\nPlayers: ${team2.player1} & ${team2.player2}\nScore: ${team2.score}`;
+        ).innerText = ` ${team2.name}\nPlayers: ${team2.player1} & ${team2.player2}\nScore: ${team2.score}\nService Fault Streak: ${serviceFaultCounter}`;
         document.getElementById(
           "queue-pane-first"
         ).innerHTML = `${team3.name}<br>Score: ${team3.score}`;
@@ -361,17 +424,17 @@
         document.getElementById("teams-form").style.display = "none";
         document.getElementById("teams-overview").style.display = "block";
 
-        startTimer();
+        updateLeaderboard();
       }
 
       function updateOverview() {
         // Display teams overview
         document.getElementById(
           "king-pane"
-        ).innerText = `${king.name}\nPlayers: ${king.player1} & ${king.player2}\nScore: ${king.score}`;
+        ).innerText = `${king.name}\nPlayers: ${king.player1} & ${king.player2}\nScore: ${king.score}\nCurrent Streak: ${king.currentStreak}`;
         document.getElementById(
           "challenger-pane"
-        ).innerText = ` ${challenger.name}\nPlayers: ${challenger.player1} & ${challenger.player2}\nScore: ${challenger.score}`;
+        ).innerText = ` ${challenger.name}\nPlayers: ${challenger.player1} & ${challenger.player2}\nScore: ${challenger.score}\nService Fault Streak: ${serviceFaultCounter}`;
         document.getElementById(
           "queue-pane-first"
         ).innerHTML = `${first.name}<br>Score: ${first.score}`;
@@ -384,19 +447,49 @@
       }
 
       function kingScored() {
+        serviceFaultCounter = 0;
         // Logic for when King scores
         king.score++;
+        //Logic for streak
+        king.currentStreak++;
+        if (king.currentStreak > king.longestStreak) {
+          king.streakRanking = 0;
+          king.longestStreak = king.currentStreak;
+          for (i = 0; i < teams.length; i++) {
+            if (
+              teams[i] != king &&
+              king.longestStreak == teams[i].longestStreak
+            ) {
+              king.streakRanking++;
+            }
+          }
+        }
+        updateLeaderboard();
+        if (king.score == 15 && round == 3) {
+          clearInterval(intervalId);
+          roundFinished();
+        }
         var lostChallenger = challenger;
         // first in queue becomes challenger
         challenger = first;
         // queue is updated
-        first = middle;
-        middle = last;
-        last = lostChallenger;
+        if (round == 1) {
+          first = middle;
+          middle = last;
+          last = lostChallenger;
+        } else if (round == 2) {
+          first = middle;
+          middle = lostChallenger;
+        } else if (round == 3) {
+          first = lostChallenger;
+        }
         updateOverview();
       }
 
       function challengerScored() {
+        serviceFaultCounter = 0;
+        // King's current streak is reset
+        king.currentStreak = 0;
         // Logic for when Challenger scores
         var lostKing = king;
         // challenger becomes new king
@@ -404,25 +497,66 @@
         // first in queue becomes challenger
         challenger = first;
         // queue is updated
-        first = middle;
-        middle = last;
-        last = lostKing;
+        if (round == 1) {
+          first = middle;
+          middle = last;
+          last = lostKing;
+        } else if (round == 2) {
+          first = middle;
+          middle = lostKing;
+        } else if (round == 3) {
+          first = lostKing;
+        }
         updateOverview();
       }
 
       function challengerFault() {
+        serviceFaultCounter++;
+        if (serviceFaultCounter == 3) {
+          serviceFaultCounter = 0;
+          king.score++;
+          if (king.score == 15 && round == 3) {
+            clearInterval(intervalId);
+            roundFinished();
+          }
+          //Logic for streak
+          king.currentStreak++;
+          if (king.currentStreak > king.longestStreak) {
+            king.streakRanking = 0;
+            king.longestStreak = king.currentStreak;
+            for (i = 0; i < teams.length; i++) {
+              if (
+                teams[i] != king &&
+                king.longestStreak == teams[i].longestStreak
+              ) {
+                king.streakRanking++;
+              }
+            }
+          }
+          updateLeaderboard();
+        }
         // Logic for when Challenger Service Fault
         var lostChallenger = challenger;
         // first in queue becomes challenger
         challenger = first;
         // queue is updated
-        first = middle;
-        middle = last;
-        last = lostChallenger;
+        if (round == 1) {
+          first = middle;
+          middle = last;
+          last = lostChallenger;
+        } else if (round == 2) {
+          first = middle;
+          middle = lostChallenger;
+        } else if (round == 3) {
+          first = lostChallenger;
+        }
+
         updateOverview();
       }
 
       let timerSeconds = 900; // 15 minutes in seconds
+      let round = 1;
+      let paused = false;
 
       function updateTimer() {
         const minutes = Math.floor(timerSeconds / 60);
@@ -433,16 +567,206 @@
         document.getElementById("timer").innerText = formattedTime;
       }
 
+      function pauseResumeTimer() {
+        if (
+          document
+            .getElementById("pauseResumeBtn")
+            .innerText.includes("Start round")
+        ) {
+          if (round == 2) {
+            document.getElementById("queue-pane-last").style.display = "none";
+            serviceFaultCounter = 0;
+            sortTeams();
+            king = teams[0];
+            king.score = 0;
+            king.currentStreak = 0;
+            king.longestStreak = 0;
+            king.streakRanking = null;
+            king.roundStartingPosition = 1;
+            challenger = teams[1];
+            challenger.score = 0;
+            challenger.currentStreak = 0;
+            challenger.longestStreak = 0;
+            challenger.streakRanking = null;
+            challenger.roundStartingPosition = 2;
+            first = teams[2];
+            first.score = 0;
+            first.currentStreak = 0;
+            first.longestStreak = 0;
+            first.streakRanking = null;
+            first.roundStartingPosition = 3;
+            middle = teams[3];
+            middle.score = 0;
+            middle.currentStreak = 0;
+            middle.longestStreak = 0;
+            middle.streakRanking = null;
+            middle.roundStartingPosition = 4;
+            updateOverview();
+            updateLeaderboard();
+          } else if (round == 3) {
+            document.getElementById("queue-pane-middle").style.display = "none";
+            serviceFaultCounter = 0;
+            sortTeams();
+            king = teams[0];
+            king.score = 0;
+            king.currentStreak = 0;
+            king.longestStreak = 0;
+            king.streakRanking = null;
+            king.roundStartingPosition = 1;
+            challenger = teams[1];
+            challenger.score = 0;
+            challenger.currentStreak = 0;
+            challenger.longestStreak = 0;
+            challenger.streakRanking = null;
+            challenger.roundStartingPosition = 2;
+            first = teams[2];
+            first.score = 0;
+            first.currentStreak = 0;
+            first.longestStreak = 0;
+            first.streakRanking = null;
+            first.roundStartingPosition = 3;
+            updateOverview();
+            updateLeaderboard();
+          }
+          document.getElementById("timer").innerText = "15:00";
+          timerSeconds = 900;
+          startTimer();
+          document.getElementById("pauseResumeBtn").innerText = "Pause";
+        } else {
+          paused = !paused;
+          const btnText = paused ? "Resume" : "Pause";
+          document.getElementById("pauseResumeBtn").innerText = btnText;
+        }
+      }
+
       function startTimer() {
-        setInterval(function () {
-          if (timerSeconds > 0) {
+        intervalId = setInterval(function () {
+          if (!paused && timerSeconds > 0) {
             timerSeconds--;
             updateTimer();
+          } else if (paused) {
+            // do nothing
           } else {
-            clearInterval(timerInterval);
-            alert("Game Over!"); // You can customize this behavior
+            clearInterval(intervalId);
+            roundFinished();
           }
         }, 1000);
+      }
+
+      function roundFinished() {
+        if (round == 1) {
+          eliminate(5);
+          updateLeaderboard();
+          round++;
+          document.getElementById(
+            "pauseResumeBtn"
+          ).innerText = `Start round ${round}`;
+        } else if (round == 2) {
+          eliminate(4);
+          updateLeaderboard();
+          round++;
+          document.getElementById(
+            "pauseResumeBtn"
+          ).innerText = `Start round ${round}`;
+        } else if (round == 3) {
+          eliminate(3);
+          eliminate(2);
+          updateLeaderboard();
+          document.getElementById("timer").innerText = `Game finished`;
+          document.getElementById("pauseResumeBtn").style.display = "none";
+          //TODO: show new page with leaderboard and option to restart game
+        }
+      }
+
+      function eliminate(position) {
+        // Sort teams based on score in ascending order
+        sortTeams();
+
+        // Find the team with the lowest score and eliminate it
+        const lowestScoreTeam = teams[position - 1];
+        lowestScoreTeam.eliminated = true;
+        lowestScoreTeam.eliminatedInRound = round;
+      }
+
+      function sortTeams() {
+        teams.sort((a, b) => {
+          // Teams that are eliminated are placed at the end
+          if (a.eliminated && !b.eliminated) {
+            return 1;
+          } else if (!a.eliminated && b.eliminated) {
+            return -1;
+          } else if (a.eliminated && b.eliminated) {
+            // If both teams are eliminated, sort based on the round they were eliminated
+            if (a.eliminatedInRound != b.eliminatedInRound) {
+              return b.eliminatedInRound - a.eliminatedInRound;
+            } else {
+              return b.score - a.score;
+            }
+          }
+
+          // Sort by score in descending order
+          if (b.score !== a.score) {
+            return b.score - a.score;
+          }
+
+          // If scores are tied, sort by streak in descending order
+          if (b.longestStreak !== a.longestStreak) {
+            return b.longestStreak - a.longestStreak;
+          }
+
+          // If streaks are tied, sort by streakRanking in ascending order
+          if (a.streakRanking !== b.streakRanking) {
+            return a.streakRanking - b.streakRanking;
+          }
+
+          // If streakRankings are tied, sort by roundStartingPosition in ascending order
+          return a.roundStartingPosition - b.roundStartingPosition;
+        });
+      }
+
+      function updateLeaderboard() {
+        // Sort teams based on score in descending order
+        sortTeams();
+
+        const tableBody = document
+          .getElementById("leaderboardTable")
+          .getElementsByTagName("tbody")[0];
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        for (let i = 0; i < teams.length; i++) {
+          const team = teams[i];
+          const row = tableBody.insertRow();
+
+          // Rank column
+          const rankCell = row.insertCell(0);
+          rankCell.textContent = i + 1;
+
+          // Team name column
+          const teamCell = row.insertCell(1);
+          teamCell.textContent = team.name;
+
+          // Players column
+          const playersCell = row.insertCell(2);
+          playersCell.textContent = `${team.player1} & ${team.player2}`;
+
+          // Score column
+          const scoreCell = row.insertCell(3);
+          scoreCell.textContent = team.score;
+
+          // Longest Streak column
+          const longestStreakCell = row.insertCell(4);
+          longestStreakCell.textContent = team.longestStreak;
+
+          // Apply styles based on elimination status
+          if (team.eliminated) {
+            row.classList.add("table-danger");
+          } else if (i === 0) {
+            // Highlight the top-ranked team
+            row.classList.add("table-success");
+          } else {
+            row.classList.add("table-primary");
+          }
+        }
       }
     </script>
   </body>

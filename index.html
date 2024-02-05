@@ -204,7 +204,13 @@
                 <p class="card-text" id="king-pane">
                   King: -<br />Player 1: -<br />Player 2: -<br />Score: -
                 </p>
-                <button class="btn btn-success" onclick="kingScored()">
+                <button
+                  class="btn btn-success"
+                  onclick="kingScored()"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Shortcut: K"
+                >
                   King Scored
                 </button>
               </div>
@@ -217,10 +223,22 @@
                 <p class="card-text" id="challenger-pane">
                   Challenger: -<br />Player 1: -<br />Player 2: -<br />Score: -
                 </p>
-                <button class="btn btn-success" onclick="challengerScored()">
+                <button
+                  class="btn btn-success"
+                  onclick="challengerScored()"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Shortcut: C"
+                >
                   Challenger Scored
                 </button>
-                <button class="btn btn-danger" onclick="challengerFault()">
+                <button
+                  class="btn btn-danger"
+                  onclick="challengerFault()"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Shortcut: F"
+                >
                   Challenger Service Fault
                 </button>
               </div>
@@ -246,6 +264,9 @@
               id="pauseResumeBtn"
               class="btn btn-primary"
               onclick="pauseResumeTimer()"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Shortcut: spacebar"
             >
               Start round 1
             </button>
@@ -771,6 +792,28 @@
           }
         }
       }
+
+      document.addEventListener("keydown", function (event) {
+        // Check if the key pressed is the spacebar
+        if (event.code === "Space") {
+          pauseResumeTimer();
+        }
+
+        // Check if the key pressed is "k"
+        if (event.key.toLowerCase() === "k") {
+          kingScored();
+        }
+
+        // Check if the key pressed is "c"
+        if (event.key.toLowerCase() === "c") {
+          challengerScored();
+        }
+
+        // Check if the key pressed is "f"
+        if (event.key.toLowerCase() === "f") {
+          challengerFault();
+        }
+      });
     </script>
   </body>
 </html>
